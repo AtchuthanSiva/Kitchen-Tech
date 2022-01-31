@@ -1,13 +1,16 @@
-import React from "react";
-import  db  from "../server/config";
+import React from 'react';
+import  fireDB  from '../server/config';
+import 'firebase/auth';
+import 'firebase/firestore';
+
 
 class Login extends React.Component{
-
-    login(){
+    
+    register(){
         const email = document.querySelector('#email').value;
         const password = document.querySelector('#password').value;
 
-        db.auth().signInWithEmailAndPassword(email, password)
+        fireDB.auth().createUserWithEmailAndPassword(email, password)
         .then((u) => {
           console.log('Successfully Logged In');
         })
@@ -15,6 +18,21 @@ class Login extends React.Component{
           console.log('Error: ' + err.toString());
         })
     }
+    
+    login(){
+        const email = document.querySelector('#email').value;
+        const password = document.querySelector('#password').value;
+
+        fireDB.auth().signInWithEmailAndPassword(email, password)
+        .then((u) => {
+          console.log('Successfully Logged In');
+        })
+        .catch((err) => {
+          console.log('Error: ' + err.toString());
+        })
+    }
+
+    
 
     render(){
         return(
